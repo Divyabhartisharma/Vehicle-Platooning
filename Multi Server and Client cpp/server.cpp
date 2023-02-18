@@ -12,7 +12,8 @@
 
 using namespace std;
 
-void *socketThread(void *arg){
+void *socketThread(void *arg)
+{
     SOCKET newSocket = *(SOCKET *)arg;
     char buf[4096];
     //Wait for client to send data
@@ -33,14 +34,17 @@ void *socketThread(void *arg){
         send(newSocket, buf, byteReceived + 1, 0);
         cout<<string(buf, 0, byteReceived)<<endl;
     }
+
     //Close the socket
     closesocket(newSocket);
-}  
+    return 0 ;
+
+}
 
 int main(int argc, char **argv){
     pthread_t threads[NUMTHREADS];
 
-    //Init winsock
+    //Init return(1);winsock
     WSADATA wsaData;
     WORD ver = MAKEWORD(2, 2);
 
@@ -48,7 +52,7 @@ int main(int argc, char **argv){
     if (wsOk != 0)
     {
         cerr << "Can't Initialize winsock! Quitting" << endl;
-        return(1);
+        
     }
 
     //Create a socket
